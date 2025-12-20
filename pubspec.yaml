@@ -6,13 +6,14 @@ publish_to: 'none'
 version: 1.0.0+1
 
 environment:
-  sdk: ^3.8.0
+  sdk: ^3.6.0-149.3.beta
 
 dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.8
   get_it: ^9.2.0
+  flutter_screenutil: ^5.9.3
 
 dev_dependencies:
   flutter_test:
