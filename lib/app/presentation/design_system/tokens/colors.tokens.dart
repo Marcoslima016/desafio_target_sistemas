@@ -28,4 +28,8 @@ class ColorsTokens {
   final Color containerTertiary = const Color(0xffD7D7D7);
 
   final Color onContainer = const Color(0xff2F3036);
+
+  final Color error = const Color(0xffFB3939);
+
+  final Color onError = const Color(0xffFFFFFF);
 }

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
 extension DesignSystemExtension on BuildContext {
-  DesignSystem get theme => ServiceLocator.I.get<DesignSystem>();
+  DesignSystem get design => ServiceLocator.I.get<DesignSystem>();
 }
 
 class DesignSystem {
