@@ -51,3 +51,45 @@ Tela que exibe as estatísticas das informações inseridas.
 - Qtd de letras.
 - Qtd de números.
 
+
+<!-- ================================================= -->
+
+## Como rodar o projeto 
+
+Este projeto foi desenvolvido utilizando **Flutter**.  
+Siga os passos abaixo para configurar o ambiente e executar a aplicação localmente.
+
+### 1. Pré-requisitos
+
+Certifique-se de ter os seguintes itens instalados:
+
+- **Flutter SDK** (versão 3.35.0)
+  - https://docs.flutter.dev/get-started/install
+- **Dart** (já incluído no Flutter SDK)
+- Um editor de código:
+  - Visual Studio Code (com extensões Flutter e Dart) **ou**
+  - Android Studio
+- Um dispositivo ou emulador configurado:
+  - Android Emulator, iOS Simulator ou dispositivo físico
+
+Para verificar se o ambiente está corretamente configurado, execute:
+
+```bash
+flutter doctor
+```
+### 2. Instalação das dependências
+
+Após clonar o repositório, navegue até a raiz do projeto e execute:
+```bash
+flutter pub get
+```
+
+### 3. Executando o projeto
+
+**Em modo de desenvolvimento**
+
+Com um dispositivo ou emulador ativo, execute:
+
+```bash
+flutter run
+```
