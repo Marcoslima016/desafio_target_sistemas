@@ -12,22 +12,23 @@ class ServiceLocator {
 
   T get<T extends Object>() => _getIt.get<T>();
 
-  void setupDependencies() {
+  void setup() {
     //
-    // ###### core #####
+    // - - - - - - - - - - - - - - - - - - -
+    // CORE
 
-    _getIt.registerFactory<ILocalStorageDriver>(() => SharedPreferencesDriver());
+    _getIt.registerLazySingleton<ILocalStorageDriver>(() => SharedPreferencesDriver());
 
-    //
-    // ###### APP ######
+    // - - - - - - - - - - - - - - - - - - -
+    // APP
 
     _getIt.registerLazySingleton<DesignSystem>(() => DesignSystem());
     _getIt.registerLazySingleton<AppNavigator>(() => AppNavigator(adapter: NativeNavigator()));
 
-    //
-    // ###### AUTH ######
+    // - - - - - - - - - - - - - - - - - - -
+    // AUTH
 
-    // AUTH_CORE
+    //AUTH_CORE
     _getIt.registerFactory<IAuthSessionDatasource>(
       () => AuthSessionDatasource(driver: _getIt.get<ILocalStorageDriver>()),
     );
@@ -38,7 +39,7 @@ class ServiceLocator {
       () => InitAuthSession(repository: _getIt.get<IAuthSessionRepository>()),
     );
 
-    // LOGIN
+    //LOGIN
     _getIt.registerFactory<ILoginDatasource>(
       () => LoginMockDatasource(),
     );
@@ -55,6 +56,8 @@ class ServiceLocator {
         initAuthSession: _getIt.get<IInitAuthSession>(),
       ),
     );
-    _getIt.registerSingleton<LoginStore>(LoginStore());
+    _getIt.registerSingleton<LoginStore>(
+      LoginStore(executeLoginAttempt: _getIt.get<ExecuteLoginAttempt>()),
+    );
   }
 }

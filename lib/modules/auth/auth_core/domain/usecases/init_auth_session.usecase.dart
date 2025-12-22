@@ -11,11 +11,11 @@ class InitAuthSession implements IInitAuthSession {
   const InitAuthSession({
     required this.repository,
   });
+
   @override
   Future call({required User user}) async {
     try {
       final newSession = AuthSession(user: user);
-
       await repository.saveSession(
         session: newSession,
       );

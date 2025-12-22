@@ -1,10 +1,6 @@
-import 'dart:developer';
-
 import 'package:desafio_target_sistemas/lib.exports.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
-import '../../login.exports.dart';
-
 part 'login.store.g.dart';
 
 class LoginStore = LoginStoreBase with _$LoginStore;
@@ -12,44 +8,121 @@ class LoginStore = LoginStoreBase with _$LoginStore;
 LoginStore get loginStore => ServiceLocator.I.get<LoginStore>();
 
 abstract class LoginStoreBase with Store {
-  late final ExecuteLoginAttempt executeLoginAttempt;
-
-  late BuildContext loginPageContext;
-
-  final TextEditingController userNameInput = TextEditingController();
-
-  final TextEditingController passInput = TextEditingController();
+  //
+  ///- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  ///  ATRIBUTOS
+  ///- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
   @observable
-  LoginStates state = LoginStates.fill;
+  ILoginState state = LoginStates.formFill(null);
 
-  LoginStoreBase() {
-    executeLoginAttempt = ServiceLocator.I.get<ExecuteLoginAttempt>();
+  late final ExecuteLoginAttempt _executeLoginAttempt;
+
+  late AsyncContext loginPageContext;
+
+  // FORM
+  final formKey = GlobalKey<FormState>();
+  @observable
+  AutovalidateMode formValidateMode = AutovalidateMode.disabled;
+  final TextEditingController usernameInput = TextEditingController();
+  final TextEditingController passInput = TextEditingController();
+
+  ///- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  ///  METODO CONSTRUTOR
+  ///- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+  LoginStoreBase({
+    required ExecuteLoginAttempt executeLoginAttempt,
+  }) {
+    _executeLoginAttempt = executeLoginAttempt;
+    _watchInputsUpdate();
   }
 
-  void onTapLogin() async {
-    bool loginFail = false;
+  ///- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  ///  HANDLE INPUT UPDATES
+  ///- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-    //TODO: EXIBIR LOADING
+  /// Escutar atualizações dos inputs.
+  void _watchInputsUpdate() {
+    usernameInput.addListener(() => _refreshStateAfterInputUpdate());
+    passInput.addListener(() => _refreshStateAfterInputUpdate());
+  }
 
+  void _refreshStateAfterInputUpdate() async {
+    bool validated = true;
+    if (usernameInput.text.isEmpty) validated = false;
+    if (passInput.text.length < 8) validated = false;
+    state = validated ? LoginStates.readyForSubmit(state.lastAttempt) : LoginStates.formFill(state.lastAttempt);
+  }
+
+  ///- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  ///  HANDLE LOGIN ATTEMPT
+  ///- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+  void handleEnterButtonTap() async {
+    if (_checkIfFormIsValidforSubmitLogin() == false) {
+      // TODO: Exibir toast "Você deve preencher todos os dados antes de prosseguir"
+    } else {
+      late LoginAttemptResult? loginResult;
+      try {
+        state = LoginStates.submit(state.lastAttempt);
+
+        await _performLoginFlow(
+          onFinnaly: (LoginAttemptResult result) async {
+            loginResult = result;
+          },
+        );
+      } catch (e) {
+        // _handleException();
+      } finally {
+        if (loginResult != null && loginResult?.authorized == true) {
+          state = LoginStates.finished();
+        } else {
+          state = LoginStates.readyForSubmit(loginResult);
+        }
+      }
+    }
+  }
+
+  bool _checkIfFormIsValidforSubmitLogin() {
     try {
-      await executeLoginAttempt(
+      if (formKey.currentState!.validate() == false) {
+        formValidateMode = AutovalidateMode.onUserInteraction;
+        return false;
+      }
+      return true;
+    } catch (e) {
+      // _handleException();
+      rethrow;
+    }
+  }
+
+  Future<void> _performLoginFlow({
+    required Function(LoginAttemptResult result) onFinnaly,
+  }) async {
+    Object? error;
+    LoginAttemptResult? attemptResult;
+    try {
+      await LoadingPopup.show(loginPageContext());
+
+      attemptResult = await _executeLoginAttempt(
         credentials: LoginCredentials(
-          username: userNameInput.text,
+          username: usernameInput.text,
           pass: passInput.text,
         ),
       );
     } catch (e) {
-      loginFail = true;
+      error = e;
+      attemptResult = LoginAttemptResult.notAuthorized();
     } finally {
-      //
-      //TODO: FECHAR LOADING
-
-      if (loginFail) {
-        //
-      } else {
-        if (loginPageContext.mounted) AppNavigator.I.goToHome(context: loginPageContext);
+      await LoadingPopup.hide();
+      if (error != null) _handleException();
+      if (attemptResult!.authorized) {
+        AppNavigator.I.goToHome(context: loginPageContext());
       }
+      await onFinnaly(attemptResult);
     }
   }
+
+  void _handleException() {}
 }

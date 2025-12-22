@@ -1,4 +1,0 @@
-enum LoginStates {
-  fill,
-  complete,
-}

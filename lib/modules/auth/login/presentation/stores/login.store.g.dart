@@ -12,22 +12,39 @@ mixin _$LoginStore on LoginStoreBase, Store {
   late final _$stateAtom = Atom(name: 'LoginStoreBase.state', context: context);
 
   @override
-  LoginStates get state {
+  ILoginState get state {
     _$stateAtom.reportRead();
     return super.state;
   }
 
   @override
-  set state(LoginStates value) {
+  set state(ILoginState value) {
     _$stateAtom.reportWrite(value, super.state, () {
       super.state = value;
+    });
+  }
+
+  late final _$formValidateModeAtom =
+      Atom(name: 'LoginStoreBase.formValidateMode', context: context);
+
+  @override
+  AutovalidateMode get formValidateMode {
+    _$formValidateModeAtom.reportRead();
+    return super.formValidateMode;
+  }
+
+  @override
+  set formValidateMode(AutovalidateMode value) {
+    _$formValidateModeAtom.reportWrite(value, super.formValidateMode, () {
+      super.formValidateMode = value;
     });
   }
 
   @override
   String toString() {
     return '''
-state: ${state}
+state: ${state},
+formValidateMode: ${formValidateMode}
     ''';
   }
 }

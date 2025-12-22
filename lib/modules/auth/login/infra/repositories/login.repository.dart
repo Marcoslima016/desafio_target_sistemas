@@ -10,7 +10,7 @@ class LoginRepository implements ILoginRepository {
   });
 
   @override
-  Future<UserAuthenticationResult> loginWithEmail({
+  Future<LoginAttemptResult> loginWithEmail({
     required LoginCredentials credentials,
   }) async {
     try {
@@ -19,13 +19,19 @@ class LoginRepository implements ILoginRepository {
         "pass": credentials.pass,
       };
 
-      Map<String, dynamic> result = await datasource.loginWithEmail(
+      Map<String, dynamic> datasourceResponse = await datasource.loginWithEmail(
         payload: payload,
       );
 
-      return UserAuthenticationResult(
-        id: result["userId"],
-      );
+      if (datasourceResponse["authorized"] == true) {
+        return LoginAttemptResult.authorized(
+          userId: datasourceResponse["result"]["userId"],
+        );
+      } else {
+        return LoginAttemptResult.notAuthorized(
+          loginFailMessage: datasourceResponse["result"]["failMessage"],
+        );
+      }
     } catch (e) {
       // TODO: TRATAR EXCESSAO
       rethrow;

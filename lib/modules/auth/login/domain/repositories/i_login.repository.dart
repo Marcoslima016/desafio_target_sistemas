@@ -2,7 +2,7 @@ import 'package:desafio_target_sistemas/modules/auth/auth_core/auth_core.exports
 import '../domain.exports.dart';
 
 abstract class ILoginRepository {
-  Future<UserAuthenticationResult> loginWithEmail({
+  Future<LoginAttemptResult> loginWithEmail({
     required LoginCredentials credentials,
   });
 

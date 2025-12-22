@@ -1,10 +1,10 @@
 import 'package:desafio_target_sistemas/modules/auth/auth_core/auth_core.exports.dart';
 
 class AuthSessionRepository implements IAuthSessionRepository {
-  final IAuthSessionDatasource authSessionDatasource;
+  final IAuthSessionDatasource datasource;
 
   AuthSessionRepository({
-    required this.authSessionDatasource,
+    required this.datasource,
   });
 
   @override
@@ -12,7 +12,7 @@ class AuthSessionRepository implements IAuthSessionRepository {
     required AuthSession session,
   }) async {
     try {
-      await authSessionDatasource.saveSession(
+      await datasource.saveSession(
         payload: session.toMap(),
       );
     } catch (e) {

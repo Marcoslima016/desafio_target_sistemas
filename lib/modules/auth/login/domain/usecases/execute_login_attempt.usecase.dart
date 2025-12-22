@@ -2,7 +2,7 @@ import 'package:desafio_target_sistemas/modules/auth/auth_core/auth_core.exports
 import '../domain.exports.dart';
 
 abstract class IExecuteLoginAttempt {
-  Future call({required LoginCredentials credentials});
+  Future<LoginAttemptResult> call({required LoginCredentials credentials});
 }
 
 class ExecuteLoginAttempt implements IExecuteLoginAttempt {
@@ -17,21 +17,23 @@ class ExecuteLoginAttempt implements IExecuteLoginAttempt {
   });
 
   @override
-  Future call({
+  Future<LoginAttemptResult> call({
     required LoginCredentials credentials,
   }) async {
     try {
-      final authenticationResult = await loginRepository.loginWithEmail(
+      final loginResult = await loginRepository.loginWithEmail(
         credentials: credentials,
       );
 
-      final userDetails = await getUserDetails(
-        userId: authenticationResult.id,
-      );
+      if (loginResult.authorized == true) {
+        final loggedUser = await getUserDetails(
+          userId: loginResult.userId!,
+        );
 
-      await initAuthSession(
-        user: userDetails,
-      );
+        await initAuthSession(user: loggedUser);
+      }
+
+      return loginResult;
     } catch (e) {
       rethrow;
     }
