@@ -19,19 +19,18 @@ class AppRoutes {
   ];
 
   static Route generateRoute(RouteSettings settings) {
-    final screen = _getScreen(settings);
     return MaterialPageRoute(
       settings: settings,
-      builder: (context) => screen,
+      builder: (context) => _buildScreen(settings),
     );
   }
 
-  static Widget _getScreen(RouteSettings settings) {
+  static Widget _buildScreen(RouteSettings settings) {
     for (RoutePage page in pages) {
       if (settings.name == page.tag) {
         return page.builder();
       }
     }
-    throw ("Rota ${settings.name} não encontrada. A rota para a página foi definida em AppRoutes?");
+    throw ("Rota ${settings.name} não encontrada. Verifique se a rota foi definida em AppRoutes()");
   }
 }
