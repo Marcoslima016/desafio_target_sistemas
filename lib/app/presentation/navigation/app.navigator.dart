@@ -104,7 +104,7 @@ enum NavigationBehaviorKeys {
 }
 
 class NavigationBehavior {
-  final bool Function(Route<dynamic>)? predicate;
+  final bool Function(dynamic)? predicate;
   final NavigationBehaviorKeys key;
 
   const NavigationBehavior._({
@@ -128,7 +128,7 @@ class NavigationBehavior {
   );
 
   static NavigationBehavior replaceUntil({
-    required bool Function(Route<dynamic>)? predicate,
+    required bool Function(dynamic)? predicate,
   }) {
     return NavigationBehavior._(
       key: NavigationBehaviorKeys.replaceUntil,
