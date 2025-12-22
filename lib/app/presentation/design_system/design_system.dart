@@ -7,7 +7,7 @@ extension DesignSystemExtension on BuildContext {
 }
 
 class DesignSystem {
-  static DesignSystem get I => GetIt.I.get<DesignSystem>();
+  static DesignSystem get I => ServiceLocator.I.get<DesignSystem>();
 
   final colors = const ColorsTokens();
 
