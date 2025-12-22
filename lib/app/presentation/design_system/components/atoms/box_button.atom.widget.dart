@@ -14,11 +14,13 @@ enum ButtonKind {
 }
 
 class ABoxButton extends StatelessWidget {
-  final Future Function() onClick;
+  final Future Function() onTap;
 
   final String text;
 
   final bool active;
+
+  final bool enableTapOnlyIfActive;
 
   late final ButtonType buttonType;
 
@@ -26,9 +28,10 @@ class ABoxButton extends StatelessWidget {
 
   ABoxButton.fill({
     super.key,
-    required this.onClick,
+    required this.onTap,
     required this.text,
     this.active = true,
+    this.enableTapOnlyIfActive = true,
     required this.kind,
   }) {
     buttonType = ButtonType.fill;
@@ -36,9 +39,10 @@ class ABoxButton extends StatelessWidget {
 
   ABoxButton.outline({
     super.key,
-    required this.onClick,
+    required this.onTap,
     required this.text,
     this.active = true,
+    this.enableTapOnlyIfActive = true,
     required this.kind,
   }) {
     buttonType = ButtonType.outline;
@@ -106,7 +110,11 @@ class ABoxButton extends StatelessWidget {
           ),
           side: _generateBorder(context),
         ),
-        onPressed: active ? onClick : () {},
+        onPressed: enableTapOnlyIfActive
+            ? active
+                ? onTap
+                : () {}
+            : onTap,
         child: Text(
           text,
           style: TextStyle(
