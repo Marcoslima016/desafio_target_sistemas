@@ -1,2 +1,3 @@
 export 'presentation.exports.dart'; 
 export './pages/pages.exports.dart'; 
+export './stores/stores.exports.dart'; 

@@ -1,0 +1,4 @@
+enum LoginStates {
+  fill,
+  complete,
+}
