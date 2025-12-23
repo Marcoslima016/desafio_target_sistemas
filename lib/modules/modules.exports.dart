@@ -1,2 +1,2 @@
 export 'modules.exports.dart'; 
-export './auth/auth.exports.dart'; 
+export './information_record/information_record.exports.dart'; 

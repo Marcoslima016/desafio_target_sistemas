@@ -13,8 +13,12 @@ class RoutePage {
 class AppRoutes {
   static List<RoutePage> pages = [
     RoutePage(
-      builder: () => LoginPage(),
-      tag: 'login',
+      builder: () => Container(),
+      tag: '/',
+    ),
+    RoutePage(
+      builder: () => ManageRecordsPage(),
+      tag: 'manage_records',
     ),
   ];
 

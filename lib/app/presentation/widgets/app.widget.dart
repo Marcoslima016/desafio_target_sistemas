@@ -35,6 +35,7 @@ class _AppWidgetState extends State<AppWidget> with WidgetsBindingObserver {
             ),
           ),
           onGenerateRoute: AppRoutes.generateRoute,
+          initialRoute: "manage_records",
           builder: (context, child) {
             final MediaQueryData data = MediaQuery.of(context);
             return MediaQuery(

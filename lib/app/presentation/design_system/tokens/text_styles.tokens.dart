@@ -80,7 +80,7 @@ class TextStylesTokens {
     _parent.copyWith(
       fontSize: 16,
       fontWeight: FontWeight.w300,
-      color: const Color.fromARGB(255, 145, 145, 145),
+      color: const Color.fromARGB(255, 21, 21, 21),
     ),
   );
 
@@ -92,20 +92,20 @@ class TextStylesTokens {
     ),
   );
 
-  final ThemeTextStyle bodySmall = ThemeTextStyle.style(
-    _parent.copyWith(
-      fontSize: 13.5,
-      fontWeight: FontWeight.w400,
-      color: Colors.grey[600],
-    ),
-  );
-
   final ThemeTextStyle bodyMediumBold = ThemeTextStyle.style(
     _parent.copyWith(
       fontSize: 14,
       fontWeight: FontWeight.w800,
       height: 1.18,
-      color: Colors.grey[200],
+      color: const Color.fromARGB(255, 21, 21, 21),
+    ),
+  );
+
+  final ThemeTextStyle bodySmall = ThemeTextStyle.style(
+    _parent.copyWith(
+      fontSize: 13.5,
+      fontWeight: FontWeight.w400,
+      color: const Color.fromARGB(255, 21, 21, 21),
     ),
   );
 
@@ -116,7 +116,7 @@ class TextStylesTokens {
       fontSize: 14,
       fontWeight: FontWeight.w300,
       height: 1.18,
-      color: const Color.fromARGB(255, 206, 206, 206),
+      color: Colors.grey[600],
     ),
   );
 
@@ -125,7 +125,7 @@ class TextStylesTokens {
       fontSize: 12,
       fontWeight: FontWeight.w300,
       height: 1.18,
-      color: const Color.fromARGB(255, 206, 206, 206),
+      color: Colors.grey[600],
     ),
   );
 
@@ -134,7 +134,7 @@ class TextStylesTokens {
       fontSize: 10,
       fontWeight: FontWeight.w300,
       height: 1.18,
-      color: Colors.grey[500],
+      color: Colors.grey[600],
     ),
   );
 }

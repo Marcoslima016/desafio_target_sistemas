@@ -4,19 +4,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class MTextInput extends StatelessWidget {
-  const MTextInput({
-    required this.controller,
-    this.hintText,
-    this.label,
-    this.inputFormatters,
-    this.obscure = false,
-    this.keyboardType,
-    this.textCapitalization = TextCapitalization.none,
-    super.key,
-    this.validator,
-    this.suffixIcon,
-  });
-
   static BorderRadius borderRadius = BorderRadius.circular(10.w);
 
   final TextEditingController controller;
@@ -42,6 +29,19 @@ class MTextInput extends StatelessWidget {
 
   final Widget? suffixIcon;
 
+  const MTextInput({
+    required this.controller,
+    this.hintText,
+    this.label,
+    this.inputFormatters,
+    this.obscure = false,
+    this.keyboardType,
+    this.textCapitalization = TextCapitalization.none,
+    super.key,
+    this.validator,
+    this.suffixIcon,
+  });
+
   @override
   Widget build(BuildContext context) {
     return TextFormField(
@@ -51,6 +51,7 @@ class MTextInput extends StatelessWidget {
       inputFormatters: inputFormatters,
       keyboardType: keyboardType,
       validator: validator,
+      textAlign: TextAlign.center,
       style: TextStyle(
         color: const Color.fromARGB(255, 58, 58, 58),
         fontWeight: FontWeight.w500,

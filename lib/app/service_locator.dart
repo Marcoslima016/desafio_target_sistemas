@@ -12,5 +12,10 @@ class ServiceLocator {
   void setupDependencies() {
     _getIt.registerLazySingleton<DesignSystem>(() => DesignSystem());
     _getIt.registerLazySingleton<AppNavigator>(() => AppNavigator(adapter: NativeNavigator()));
+
+    // - - - - - - - - - - - - - - - - - - -
+    // INFORMATION_RECORD
+
+    _getIt.registerSingleton<ManageRecordsStore>(ManageRecordsStore());
   }
 }

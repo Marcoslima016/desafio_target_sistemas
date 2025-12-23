@@ -1,0 +1,6 @@
+{
+    "chat.promptFilesLocations": {
+        ".dev_kit/prompts": true
+    },
+    "dart.flutterSdkPath": "/Users/Lima/development/flutter/3.35/flutter"
+}
