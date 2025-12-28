@@ -93,7 +93,6 @@ abstract class ManageRecordsStoreBase with Store {
         value: itemEditingInput.text,
       );
       item.info = updatedInfo;
-      item.isTemporary = false;
       item.editing = false;
     }
   }
@@ -103,6 +102,7 @@ abstract class ManageRecordsStoreBase with Store {
   @action
   Future<void> _registerNewItem(RecordedInfoStore item) async {
     item.editing = false;
+    item.isTemporary = false;
     item.info.registrationDate = DateTime.now();
     recordedItems.add(item);
     isRecordingNewInfo = false;
