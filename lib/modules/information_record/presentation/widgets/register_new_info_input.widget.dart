@@ -24,7 +24,7 @@ class _RegisterNewInfoInputState extends State<RegisterNewInfoInput> {
             child: IgnorePointer(
               ignoring: hasItemsEditing,
               child: Opacity(
-                opacity: hasItemsEditing ? 0.5 : 1.0,
+                opacity: hasItemsEditing ? 0.12 : 1.0,
                 child: MTextInput(
                   controller: manageRecordsStore.newInfoInput,
                   hintText: "Digite o seu texto",

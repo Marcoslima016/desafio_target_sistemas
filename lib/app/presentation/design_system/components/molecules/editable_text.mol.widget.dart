@@ -7,7 +7,7 @@ class MEditableText extends StatelessWidget {
 
   final bool editing;
 
-  static BorderRadius borderRadius = BorderRadius.circular(5.sp);
+  static BorderRadius borderRadius = BorderRadius.circular(4.sp);
 
   final TextCapitalization textCapitalization;
 
@@ -45,9 +45,8 @@ class MEditableText extends StatelessWidget {
           keyboardType: keyboardType,
           validator: validator,
           style: TextStyle(
-            color: editing ? const Color.fromARGB(255, 10, 10, 10) : const Color.fromARGB(255, 141, 141, 141),
-            fontWeight: editing ? FontWeight.w600 : FontWeight.w500,
-            // fontWeight: FontWeight.w500,
+            color: editing ? const Color.fromARGB(255, 24, 24, 24) : const Color.fromARGB(255, 141, 141, 141),
+            fontWeight: editing ? FontWeight.w700 : FontWeight.w500,
             fontSize: 14.sp,
           ),
           decoration: InputDecoration(
@@ -66,7 +65,7 @@ class MEditableText extends StatelessWidget {
               color: context.design.colors.primary,
               fontWeight: FontWeight.w400,
             ),
-            contentPadding: EdgeInsets.symmetric(vertical: 2.sp, horizontal: 10.sp),
+            contentPadding: EdgeInsets.only(left: 8.sp, right: 8.sp, bottom: 6.sp),
             alignLabelWithHint: false,
             floatingLabelBehavior: FloatingLabelBehavior.auto,
             hintStyle: TextStyle(

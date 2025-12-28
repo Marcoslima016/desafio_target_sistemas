@@ -11,8 +11,8 @@ class RecordedInfoGrid extends StatelessWidget {
   void _sortList(List<RecordedInfoStore> list) {
     list.sort(
       (a, b) {
-        return a.info.registrationDate!.compareTo(
-          b.info.registrationDate!,
+        return b.info.registrationDate!.compareTo(
+          a.info.registrationDate!,
         );
       },
     );

@@ -20,6 +20,7 @@ class _ManageRecordsPageState extends State<ManageRecordsPage> {
       resizeToAvoidBottomInset: false,
       backgroundColor: context.design.colors.tertiary,
       body: SafeArea(
+        bottom: false,
         child: _buildBody(),
       ),
     );
@@ -33,7 +34,7 @@ class _ManageRecordsPageState extends State<ManageRecordsPage> {
       Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        spacing: 24.sp,
+        spacing: 32.sp,
         children: [
           const RecordedInfoGrid(),
           const RegisterNewInfoInput(),
@@ -48,7 +49,7 @@ class _ManageRecordsPageState extends State<ManageRecordsPage> {
 
   Widget _buildPagePaddingWraper(Widget child) {
     return Padding(
-      padding: EdgeInsets.all(24.sp),
+      padding: EdgeInsets.all(20.sp),
       child: child,
     );
   }
@@ -58,7 +59,11 @@ class _ManageRecordsPageState extends State<ManageRecordsPage> {
 
   Widget _buildEstatisticsButton() {
     return Padding(
-      padding: EdgeInsets.only(left: 105.sp, right: 105.sp),
+      padding: EdgeInsets.only(
+        left: 105.sp,
+        right: 105.sp,
+        bottom: 10.sp,
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [

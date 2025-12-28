@@ -29,28 +29,25 @@ class GridRow extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             //
-            Opacity(
-              opacity: isTemporary ? 0.5 : 1,
-              child: Container(
-                margin: EdgeInsets.symmetric(vertical: 5.sp),
-                decoration: _makeDecoration(context),
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    _buildInfoValueDisplay(),
-                    _buildRowButtons(gridItem),
-                  ],
-                ),
+            Container(
+              margin: EdgeInsets.symmetric(vertical: 5.sp),
+              decoration: _makeDecoration(context),
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  _buildInfoValueDisplay(),
+                  _buildRowButtons(gridItem),
+                ],
               ),
             ),
 
             //DIVIDER
             Divider(
               height: 0.5.sp,
-              thickness: 0.5.sp,
-              color: const Color.fromARGB(255, 163, 163, 163),
+              thickness: 0.6.sp,
+              color: const Color.fromARGB(255, 191, 191, 191),
             ),
             //
           ],
@@ -64,14 +61,21 @@ class GridRow extends StatelessWidget {
   // INFO VALUE DISPLAY
 
   Widget _buildInfoValueDisplay() {
-    TextEditingController inputController = TextEditingController(text: gridItem.info.value);
-    if (gridItem.editing) inputController = manageRecordsStore.itemEditingInput;
+    return Observer(
+      builder: (_) {
+        TextEditingController inputController = TextEditingController(text: gridItem.info.value);
+        if (gridItem.editing) inputController = manageRecordsStore.itemEditingInput;
 
-    return Expanded(
-      child: MEditableText(
-        controller: inputController,
-        editing: gridItem.editing,
-      ),
+        return Expanded(
+          child: Opacity(
+            opacity: isTemporary ? 0.5 : 1,
+            child: MEditableText(
+              controller: inputController,
+              editing: gridItem.editing,
+            ),
+          ),
+        );
+      },
     );
   }
 
@@ -89,7 +93,7 @@ class GridRow extends StatelessWidget {
 
     bool disableButtonsAction = false;
 
-    if (isThisItemEditing == false) {
+    if (isThisItemEditing == false && isThisItemTemporary == false) {
       disableButtonsAction = isRecordingNewInfo || hasAnotherItemEditing;
     }
 
@@ -108,7 +112,7 @@ class GridRow extends StatelessWidget {
                 Icon(
                   Icons.save,
                   size: 22.sp,
-                  color: const Color.fromARGB(255, 130, 130, 130),
+                  color: const Color.fromARGB(255, 147, 147, 147),
                 ),
               ],
             ),
@@ -119,13 +123,13 @@ class GridRow extends StatelessWidget {
       //BOTAO CANCELAR
       displayedButtonsList.add(
         Padding(
-          padding: EdgeInsets.only(left: 5.sp),
+          padding: EdgeInsets.only(left: 4.sp),
           child: InkWell(
             onTap: () => store.onTapCancelEdit(gridItem),
             child: Icon(
               Icons.close,
-              color: const Color.fromARGB(255, 143, 143, 143),
-              size: 20.5.sp,
+              color: const Color.fromARGB(255, 176, 176, 176),
+              size: 22.sp,
             ),
           ),
         ),
@@ -142,7 +146,7 @@ class GridRow extends StatelessWidget {
             child: Icon(
               Icons.edit,
               size: 20.6.sp,
-              color: const Color.fromARGB(255, 55, 55, 55),
+              color: const Color.fromARGB(255, 147, 147, 147),
             ),
           ),
         ),
