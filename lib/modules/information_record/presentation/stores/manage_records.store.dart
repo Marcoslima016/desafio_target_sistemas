@@ -93,6 +93,7 @@ abstract class ManageRecordsStoreBase with Store {
         value: itemEditingInput.text,
       );
       item.info = updatedInfo;
+      item.isTemporary = false;
       item.editing = false;
     }
   }
