@@ -40,8 +40,8 @@ class RecordedInfoGrid extends StatelessWidget {
         padding: EdgeInsets.only(
           left: 8.sp,
           right: 8.sp,
-          top: 6.sp,
-          bottom: 6.sp,
+          top: 4.sp,
+          bottom: 4.sp,
         ),
         decoration: BoxDecoration(
           color: context.design.colors.containerSecondary,
